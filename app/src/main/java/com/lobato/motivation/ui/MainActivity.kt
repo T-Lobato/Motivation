@@ -1,8 +1,11 @@
-package com.lobato.motivation
+package com.lobato.motivation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.lobato.motivation.infra.MotivationConstants
+import com.lobato.motivation.R
+import com.lobato.motivation.infra.SecurityPreferences
 import com.lobato.motivation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Esconder a barra de navegação
         supportActionBar?.hide()
 
+        handleUserName()
+
         // Eventos
         binding.buttonNewPhrase.setOnClickListener(this)
     }
@@ -27,4 +32,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun handleUserName() {
+        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
+        binding.textUserName.text = "Olá, $name!"
+    }
 }
